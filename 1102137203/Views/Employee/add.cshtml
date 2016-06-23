@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "add";
+}
+
+<h2>add</h2>
+
+@using (Html.BeginForm("add", "Employee", FormMethod.Post))
+{
+    <table border="1" style="width:100%">
+        <tr>
+            <td>員工編號</td>
+            <td><input type="text" name="empId" value="@ViewBag.empId" disabled/></td>
+        </tr>
+        <tr>
+            <td>姓名(First Name)</td>
+            <td><input type="text" name="firstname" required/></td>
+        </tr>
+        <tr>
+            <td>姓名(Last Name)</td>
+            <td><input type="text" name="lastname" required/></td>
+        </tr>
+        <tr>
+            <td>職稱</td>
+            <td>
+                <select name="title" required>
+                    <option value="">選擇職稱</option>
+                    @foreach (var item in ViewBag.employee)
+                    {
+                        <option value="@item.Title">@item.Title</option>
+                    }
+                </select>
+            </td>
+        </tr>
+         <tr>
+            <td>職謂</td>
+            <td><input type="text" name="titleofcourtesy" /></td>
+        </tr>
+        <tr>
+            <td>任職日期</td>
+            <td><input type="date" name="hiredate" /></td>
+        </tr>
+        <tr>
+            <td>生日</td>
+            <td><input type="date" name="birthdate" /></td>
+        </tr>
+        <tr>
+            <td>國家</td>
+            <td>
+                <select name="country">
+                    <option value="">選擇國家</option>
+                   @foreach (var item in ViewBag.employee)
+                   {
+                    <option value="@item.Country">@item.Country</option>
+                   }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>城市</td>
+            <td>
+                <select name="city">
+                    <option value="">選擇城市</option>
+                    @foreach (var item in ViewBag.employee)
+                    {
+                        <option value="@item.City">@item.City</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>地址</td>
+            <td><input type="text" name="add" /></td>
+        </tr>
+        <tr>
+            <td>電話</td>
+            <td><input type="text" name="phone" /></td>
+        </tr>
+        <tr>
+            <td>性別</td>
+            <td>
+                <select name="gender">
+                    <option value="">選擇性別</option>
+                   @foreach (var item in ViewBag.employee)
+                   {
+                    <option value="@item.Gender">@item.Gender</option>
+                   }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>直屬主管</td>
+            <td>
+                <select name="manager">
+                    <option value="">選擇直屬主管</option>
+                    @foreach (var item in ViewBag.employee)
+                    {
+                        <option value="@item.ManagerID">@item.ManagerID</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>月薪</td>
+            <td><input type="text" name="msalary" /></td>
+        </tr>
+        <tr>
+            <td>年薪</td>
+            <td><input type="text" name="ysalary" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="3">
+                <input type="submit" value="存檔" />
+                <a href="/search"><input type="button" value="回上一頁" /></a>
+            </td>
+        </tr>
+    </table>
+}
+</body>
+</html>

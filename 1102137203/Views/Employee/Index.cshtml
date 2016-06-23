@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<html>
+<body>
+@using (Html.BeginForm("Index", "Employee", FormMethod.Post))
+{
+        <table border="1" style="width:100%">
+            <tr>
+                <td>員工編號</td>
+                <td><input type="text" name="empId" /></td>
+            </tr>
+            <tr>
+                <td>員工姓名</td>
+                <td><input type="text" name="emplo" /></td>
+            </tr>
+            <tr>
+                <td>職稱</td>
+                <td>
+                    <select name="title">
+                        <option value="">選擇職位</option>
+                        @foreach (var item in ViewBag.etitle)
+                        {
+                            <option>@item</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>任職日期</td>
+                <td><input type="date" name=""/>~<input type="date" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="查詢" />
+                    <input type="reset" value="清除" />
+                    <a href="/Employee/add"><input type="button" value="新增員工" /></a>
+                </td>
+            </tr>
+        </table>
+}
+</body>
+</html>
