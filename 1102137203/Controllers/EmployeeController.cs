@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -92,6 +93,71 @@ namespace _1102137203.Controllers
             db.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+        public ActionResult update(String empId) {
+            List<Employees> bingo = db.Employees.Where(x => x.EmployeeID.ToString() == empId).ToList();
+
+            Employees data = new Employees();
+
+            String birthDate = "";
+            String birthMon = "";
+            String birthDay = "";
+
+            String hireDate = "";
+            String hireMon = "";
+            String hireDay = "";
+
+            foreach (var item in bingo)
+            {
+                data.EmployeeID = item.EmployeeID;
+                data.FirstName = item.FirstName;
+                data.LastName = item.LastName;
+                data.Title = item.Title;
+                data.TitleOfCourtesy = item.TitleOfCourtesy;
+                data.Country = item.Country;
+                data.City = item.City;
+                data.Address = item.Address;
+                data.Phone = item.Phone;
+                data.Gender = item.Gender;
+                data.ManagerID = item.ManagerID;
+                data.MonthlyPayment = item.MonthlyPayment;
+                data.YearlyPayment = item.YearlyPayment;
+                
+
+                birthMon = alterDate(item.BirthDate.Month.ToString());
+                birthDay = alterDate(item.BirthDate.Day.ToString());
+                birthDate = String.Format("{0}-{1}-{2}", item.BirthDate.Year, birthMon, birthDay);
+
+                hireMon = alterDate(item.HireDate.Month.ToString());
+                hireDay = alterDate(item.HireDate.Day.ToString());
+                hireDate = String.Format("{0}-{1}-{2}", item.HireDate.Year, hireMon, hireDay);
+            }
+            ViewBag.data = data;
+            ViewBag.birthDate = birthDate;
+            ViewBag.hireDate = hireDate;
+
+            List<Employees> bingolastname = db.Employees.Where(x => x.LastName != data.LastName).ToList();
+            ViewBag.bingolastnamelist = bingolastname;
+
+            List<Employees> bingofirstname = db.Employees.Where(x => x.FirstName != data.FirstName).ToList();
+            ViewBag.bingofirstnamelist = bingofirstname;
+
+            List<Employees> bingotitle = db.Employees.Where(x => x.Title != data.Title).ToList();
+            ViewBag.bingotitlelist = bingotitle;
+
+            List<Employees> bingotitleofcourtesy = db.Employees.Where(x => x.TitleOfCourtesy != data.TitleOfCourtesy).ToList();
+            ViewBag.bingotitleofcourtesylist = bingotitleofcourtesy;
+            return View();
+        }
+        public String alterDate(String date)
+        {
+            StringBuilder change = new StringBuilder();
+            if (date.Length < 2)
+            {
+                change.Append("0");//append字串相加
+            }
+            change.Append(date);
+            return change.ToString();
         }
         public void delete(int emploId)
         {

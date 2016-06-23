@@ -143,6 +143,7 @@
     <Content Include="Web.config" />
     <Content Include="Views\Employee\search.cshtml" />
     <Content Include="Views\Employee\add.cshtml" />
+    <Content Include="Views\Employee\update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />

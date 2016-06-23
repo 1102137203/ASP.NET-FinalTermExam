@@ -1,12 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "add";
+    ViewBag.Title = "update";
 }
 
-<h2>add</h2>
+<h2>update</h2>
 <html>
 <body>
-    @using (Html.BeginForm("add", "Employee", FormMethod.Post))
+    @using (Html.BeginForm("update", "Employee", FormMethod.Post))
     {
         <table border="1" style="width:100%">
             <tr>
@@ -15,18 +15,18 @@
             </tr>
             <tr>
                 <td>姓名(First Name)</td>
-                <td><input type="text" name="firstname" required /></td>
+                <td><input type="text" name="firstname" value="@ViewBag.data.FirstName" /></td>
             </tr>
             <tr>
                 <td>姓名(Last Name)</td>
-                <td><input type="text" name="lastname" required /></td>
+                <td><input type="text" name="lastname" value="@ViewBag.data.LastName"/></td>
             </tr>
             <tr>
                 <td>職稱</td>
                 <td>
                     <select name="title" required>
-                        <option value="">選擇職稱</option>
-                        @foreach (var item in ViewBag.employee)
+                        <option value="@ViewBag.data.Title">@ViewBag.data.Title</option>
+                        @foreach (var item in ViewBag.bingotitlelist)
                         {
                             <option value="@item.Title">@item.Title</option>
                         }
@@ -35,57 +35,38 @@
             </tr>
             <tr>
                 <td>職謂</td>
-                <td><input type="text" name="titleofcourtesy" /></td>
+                <td><input type="text" name="titleofcourtesy" value="@ViewBag.data.TitleOfCourtesy"/></td>
             </tr>
             <tr>
                 <td>任職日期</td>
-                <td><input type="date" name="hiredate" /></td>
+                <td><input type="date" name="hiredate" value="@ViewBag.hireDate"/></td>
             </tr>
             <tr>
                 <td>生日</td>
-                <td><input type="date" name="birthdate" /></td>
+                <td><input type="date" name="birthdate"  value="@ViewBag.birthDate"/></td>
             </tr>
             <tr>
                 <td>國家</td>
-                <td>
-                    <select name="country">
-                        <option value="">選擇國家</option>
-                        @foreach (var item in ViewBag.employee)
-                        {
-                            <option value="@item.Country">@item.Country</option>
-                        }
-                    </select>
-                </td>
+                <td><input type="text" name="country" value="@ViewBag.data.Country" /></td>
             </tr>
             <tr>
                 <td>城市</td>
-                <td>
-                    <select name="city">
-                        <option value="">選擇城市</option>
-                        @foreach (var item in ViewBag.employee)
-                        {
-                            <option value="@item.City">@item.City</option>
-                        }
-                    </select>
-                </td>
+                <td><input type="text" name="city" value="@ViewBag.data.City" /></td>
             </tr>
             <tr>
                 <td>地址</td>
-                <td><input type="text" name="add" /></td>
+                <td><input type="text" name="add" value="@ViewBag.data.Address" /></td>
             </tr>
             <tr>
                 <td>電話</td>
-                <td><input type="text" name="phone" /></td>
+                <td><input type="text" name="phone" value="@ViewBag.data.Phone" /></td>
             </tr>
             <tr>
                 <td>性別</td>
                 <td>
                     <select name="gender">
-                        <option value="">選擇性別</option>
-                        @foreach (var item in ViewBag.employee)
-                        {
-                            <option value="@item.Gender">@item.Gender</option>
-                        }
+                        <option value="@ViewBag.data.Title">@ViewBag.data.Title</option>
+                        
                     </select>
                 </td>
             </tr>
@@ -94,10 +75,7 @@
                 <td>
                     <select name="manager">
                         <option value="">選擇直屬主管</option>
-                        @foreach (var item in ViewBag.employee)
-                        {
-                            <option value="@item.ManagerID">@item.ManagerID</option>
-                        }
+                        
                     </select>
                 </td>
             </tr>
@@ -113,10 +91,29 @@
                 <td></td>
                 <td colspan="3">
                     <input type="submit" value="存檔" />
-                    <a href="/search"><input type="button" value="回上一頁" /></a>
+                    <input type="button" value="刪除" onclick="delemp('@ViewBag.data.EmployeeID')" />
+                    <input type="button" value="回前一頁" onclick="previous()" />
                 </td>
             </tr>
         </table>
     }
 </body>
 </html>
+<script>
+    function previous() {
+        history.back();
+    }
+    function delemp(emploId) {
+        $.ajax({
+            type: "GET",
+            url: "/Employee/delete",
+            data: {
+                emploId: emploId
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        })
+        alert("刪除成功");
+        document.location.reload();
+    }
+</script>
